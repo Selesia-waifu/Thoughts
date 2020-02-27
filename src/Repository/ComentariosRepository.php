@@ -19,6 +19,12 @@ class ComentariosRepository extends ServiceEntityRepository
         parent::__construct($registry, Comentarios::class);
     }
 
+    public function verComentarios($id)
+    {
+        return $this->getEntityManager()
+        ->createQuery('insert into comentar');
+    }
+
     // /**
     //  * @return Comentarios[] Returns an array of Comentarios objects
     //  */

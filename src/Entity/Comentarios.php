@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ComentariosRepository")
@@ -35,6 +36,11 @@ class Comentarios
      * @ORM\ManyToOne(targetEntity="App\Entity\Pensamientos", inversedBy="comentarios")
      */
     private $Id_pensamiento;
+
+    public function __construct()
+    {
+        $this->fecha_comentario = new \DateTime();
+    }
 
     public function getId(): ?int
     {

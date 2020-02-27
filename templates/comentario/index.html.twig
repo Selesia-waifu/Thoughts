@@ -1,9 +1,8 @@
-{% extends 'base.html.twig' %} {% block title %}Home{% endblock %} {% block body %}
-
-
+{% extends 'base.html.twig' %} {% block title %}Hello ComentarioController!{% endblock %} {% block body %}
 <div class="container">
     <div class="row">
         <div class="offset-md-2 col-md-8">
+
             {% for post in pensamientos %}
             <div class="card bg-dark text-light shadow-sm">
                 <div class="card-header text-light">
@@ -14,15 +13,11 @@
                     <p>{{post.Contenido}}</p>
                 </div>
                 <div class="card-footer text-light">
-                    <a class="text-light" data-toggle="collapse" href="/comentarios/{{post.id}}" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Mostrar Comentarios</a>
-                    <a class="text-light" style="float: right;" href="/comentar/{{post.id}}" role="button">Comentar</a>
+                    {{form(comentar)}}
                 </div>
             </div>
-
-
             <br> {% endfor %}
         </div>
     </div>
 </div>
-
 {% endblock %}

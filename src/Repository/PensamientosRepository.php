@@ -18,6 +18,24 @@ class PensamientosRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Pensamientos::class);
     }
+    public function MostrarPensamientos()
+    {
+        return $this->getEntityManager()
+        ->createQuery('select pensamiento.id,pensamiento.titulo,pensamiento.Contenido,pensamiento.fecha_pensamiento,user.nickname
+                      from App:Pensamientos pensamiento
+                      Join pensamiento.Id_user user order by pensamiento.fecha_pensamiento')
+                      ->getResult();
+    }
+    public function MostrarPensamientosID($id)
+    {
+        $em = $this->getEntityManager();
+        $query=$em
+        ->createQuery('select pensamiento.id,pensamiento.titulo,pensamiento.Contenido,pensamiento.fecha_pensamiento,user.nickname
+                      from App:Pensamientos pensamiento
+                      Join pensamiento.Id_user user where pensamiento.id = :id')
+                      ->setParameter('id',$id);
+        return $query->getResult();              
+    }
 
     // /**
     //  * @return Pensamientos[] Returns an array of Pensamientos objects

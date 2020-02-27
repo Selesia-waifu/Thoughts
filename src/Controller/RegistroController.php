@@ -35,4 +35,6 @@ class RegistroController extends AbstractController
             'formulario'=>$form->createView()
         ]);
     }
+
+    
 }
