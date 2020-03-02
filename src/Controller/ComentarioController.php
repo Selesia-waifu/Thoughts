@@ -10,44 +10,33 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ComentarioController extends AbstractController
 {
-     /** 
-     * @Route("/comentarios/{id}",name="comentarios")
-    */
-    public function comentarios($id)
-    {
-        
-
-        $em = $this->getDoctrine()->getManager();
-        $objPensamientos=$em->getRepository(Pensamientos::class)->MostrarPensamientosID($id);
-        return $this->render('comentario/index.html.twig', [
-            'controller_name' => 'ComentarioController',
-            'pensamientos'=>$objPensamientos,
-            
-        ]);
-    }
+     
      /** 
      * @Route("/comentar/{id}",name="comentar")
     */
     public function comentar($id,Request $request)
     {
-        
         $em=$this->getDoctrine()->getManager();
         $objPensamientos=$em->getRepository(Pensamientos::class)->MostrarPensamientosID($id);
+        $pensamiento=$em->getRepository(Pensamientos::class)->find($id);
         $comentar = new comentarios();
         $form = $this->createForm(ComentarioType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted()&&$form->isValid()) {
             $user=$this->getUser();
+            $comentar->setIdPensamiento($pensamiento);
             $comentar->setIdUser($user);
-            $comentar->setIdPensamiento($id);
             $comentar->setContenidoComentario($form['contenido_comentario']->getData());
             $em->persist($comentar);
             $em->flush();
         }
+        $comentarios=$em->getRepository(Comentarios::class)->verComentarios($id);
         return $this->render('comentario/index.html.twig',[
         'comentar'=>$form->createView(),
-        'pensamientos'=>$objPensamientos
+        'pensamientos'=>$objPensamientos,
+        'comentarios'=>$comentarios
         ]);
 
     }
+    
 }

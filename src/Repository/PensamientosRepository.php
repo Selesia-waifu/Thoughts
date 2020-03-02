@@ -21,16 +21,16 @@ class PensamientosRepository extends ServiceEntityRepository
     public function MostrarPensamientos()
     {
         return $this->getEntityManager()
-        ->createQuery('select pensamiento.id,pensamiento.titulo,pensamiento.Contenido,pensamiento.fecha_pensamiento,user.nickname
+        ->createQuery('select pensamiento.id,pensamiento.titulo,pensamiento.Contenido,pensamiento.likes,pensamiento.fecha_pensamiento,user.nickname
                       from App:Pensamientos pensamiento
-                      Join pensamiento.Id_user user order by pensamiento.fecha_pensamiento')
+                      Join pensamiento.Id_user user order by pensamiento.fecha_pensamiento desc')
                       ->getResult();
     }
     public function MostrarPensamientosID($id)
     {
         $em = $this->getEntityManager();
         $query=$em
-        ->createQuery('select pensamiento.id,pensamiento.titulo,pensamiento.Contenido,pensamiento.fecha_pensamiento,user.nickname
+        ->createQuery('select pensamiento.id,pensamiento.titulo,pensamiento.Contenido,pensamiento.likes,pensamiento.fecha_pensamiento,user.nickname
                       from App:Pensamientos pensamiento
                       Join pensamiento.Id_user user where pensamiento.id = :id')
                       ->setParameter('id',$id);

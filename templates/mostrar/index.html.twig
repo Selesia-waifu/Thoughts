@@ -1,20 +1,21 @@
-{% extends 'base.html.twig' %} {% block title %}Home{% endblock %} {% block body %}
-
+ {% extends 'base.html.twig' %} {% block title %}Home{% endblock %} {% block body %}
 
 <div class="container">
     <div class="row">
         <div class="offset-md-2 col-md-8">
             {% for post in pensamientos %}
-            <div class="card bg-dark text-light shadow-sm">
+            <div class="card bg-dark text-light shadow-lg">
                 <div class="card-header text-light">
-                    <h5>Autor: {{post.nickname|upper}}</h3> {{post.fecha_pensamiento|date}}
+                    <h5>Autor: {{post.nickname|upper}}</h3>
+                        <p style="font-size: 12px;">{{post.fecha_pensamiento|date}}</p>
+                        <h3 class="text-light">{{post.titulo|title}}</h3>
                 </div>
-                <div class="card-body text-light" style="background-color: rgb(61,60,68);">
-                    <h3 class="text-light">{{post.titulo|title}}</h3>
+                <div class="card-body text-light" style="background-color: rgb(61,60,57);">
                     <p>{{post.Contenido}}</p>
                 </div>
                 <div class="card-footer text-light">
-                    <a class="text-light" data-toggle="collapse" href="/comentarios/{{post.id}}" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Mostrar Comentarios</a>
+                    <a onclick="like({{post.id}})"><img src="{{asset('images/facebook_like_32px.png')}}" alt=""></a>
+                    <a class="text-light" style="margin-left: 8px;position:absolute;top:85%;">{{post.likes}}</a>
                     <a class="text-light" style="float: right;" href="/comentar/{{post.id}}" role="button">Comentar</a>
                 </div>
             </div>
@@ -25,4 +26,8 @@
     </div>
 </div>
 
+{% endblock %} {% block javascripts %} {{parent()}}
+<script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+<script src="{{asset('js/ajaxcalls.js')}}"></script>
 {% endblock %}

@@ -37,9 +37,11 @@ class Comentarios
      */
     private $Id_pensamiento;
 
+
     public function __construct()
     {
         $this->fecha_comentario = new \DateTime();
+        
     }
 
     public function getId(): ?int

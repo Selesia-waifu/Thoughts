@@ -20,9 +20,14 @@ class ComentariosRepository extends ServiceEntityRepository
     }
 
     public function verComentarios($id)
-    {
-        return $this->getEntityManager()
-        ->createQuery('insert into comentar');
+    {$em = $this->getEntityManager();
+        $query=$em
+        ->createQuery('select comentario.contenido_comentario as user_coment,comentario.fecha_comentario,user.nickname
+        from App:Comentarios comentario
+        Join comentario.Id_user user
+        Where comentario.Id_pensamiento = :id order by comentario.fecha_comentario desc')
+                      ->setParameter('id',$id);
+        return $query->getResult();  
     }
 
     // /**

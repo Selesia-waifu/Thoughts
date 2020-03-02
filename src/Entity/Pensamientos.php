@@ -45,15 +45,28 @@ class Pensamientos
      */
     private $comentarios;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $likes;
+
     public function __construct()
     {
         $this->comentarios = new ArrayCollection();
         $this->fecha_pensamiento= new \DateTime();
+        $this->likes="0";
+        
     }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+    public function setId($id):self 
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getTitulo(): ?string
@@ -134,4 +147,19 @@ class Pensamientos
 
         return $this;
     }
+
+    public function getLikes(): ?string
+    {
+        return $this->likes;
+    }
+
+    public function setLikes(string $likes): self
+    {
+        $this->likes = $likes;
+
+        return $this;
+    }
+
+    
+    
 }

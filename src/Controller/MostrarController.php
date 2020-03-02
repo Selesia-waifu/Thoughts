@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Pensamientos;
 use App\Form\PensamientoType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -24,5 +25,6 @@ class MostrarController extends AbstractController
             'pensamientos'=>$objPensamientos
         ]);
     }
+    
    
 }
