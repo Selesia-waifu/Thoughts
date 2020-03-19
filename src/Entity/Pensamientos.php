@@ -46,15 +46,20 @@ class Pensamientos
     private $comentarios;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\OneToMany(targetEntity="App\Entity\Likes", mappedBy="id_publicacion")
      */
     private $likes;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Contadorlikes;
 
     public function __construct()
     {
         $this->comentarios = new ArrayCollection();
         $this->fecha_pensamiento= new \DateTime();
-        $this->likes="0";
+        $this->Contadorlikes="0";
         
     }
 
@@ -148,17 +153,52 @@ class Pensamientos
         return $this;
     }
 
-    public function getLikes(): ?string
+    /**
+     * @return Collection|Likes[]
+     */
+    public function getLikes(): Collection
     {
         return $this->likes;
     }
 
-    public function setLikes(string $likes): self
+    public function addLike(Likes $like): self
     {
-        $this->likes = $likes;
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+            $like->setIdPublicacion($this);
+        }
 
         return $this;
     }
+
+    public function removeLike(Likes $like): self
+    {
+        if ($this->likes->contains($like)) {
+            $this->likes->removeElement($like);
+            // set the owning side to null (unless already changed)
+            if ($like->getIdPublicacion() === $this) {
+                $like->setIdPublicacion(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getContadorlikes(): ?string
+    {
+        return $this->Contadorlikes;
+    }
+
+    public function setContadorlikes(string $Contadorlikes): self
+    {
+        $this->Contadorlikes = $Contadorlikes;
+
+        return $this;
+    }
+
+   
+
+    
 
     
     

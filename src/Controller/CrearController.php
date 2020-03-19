@@ -25,6 +25,7 @@ class CrearController extends AbstractController
             $pensamientos->setContenido($form['Contenido']->getData());
             $em->persist($pensamientos);
             $em->flush();
+            return $this->redirectToRoute('mostrar');
         }
         return $this->render('crear/index.html.twig', [
             'controller_name' => 'CrearController',

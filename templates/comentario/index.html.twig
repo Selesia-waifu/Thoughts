@@ -3,24 +3,39 @@
     <div class="row">
         <div class="offset-md-2 col-md-8">
 
-            {% for post in pensamientos %}
-            <div class="card bg-dark text-light shadow-sm">
-                <div class="card-header text-light shadow-sm">
+            {% for post in pensamientos %} {% set creator = post.email %}
+            <div class="card  text-light shadow-lg">
+                <div class="card-header bg-dark text-light shadow-sm">
+                    {% if app.user.username in creator %}
+                    <div class="dropdown bg-dark">
+                        <h5>Autor: Tú</h3>
+                            <img type="button" data-toggle="dropdown" style="position: absolute;top:0px;right:0px" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle" id="dropdownMenuButton" src="{{asset('images/menu_vertical_24px.png')}}" alt="MenuImage" />
+
+                            <div class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" style="color: white;" href="#"><img src="{{asset('images/edit_16px.png')}}" alt="EditImage"> Editar</a>
+                                <a class="dropdown-item" style="color: white;" href="#"><img src="{{asset('images/delete_bin_16px.png')}}" alt="EditImage"> Eliminar</a>
+                            </div>
+                    </div>
+                    <p style="font-size: 12px;">{{post.fecha_pensamiento|date}}</p>
+                    <h3 class="text-light">{{post.titulo|title}}</h3>
+
+                    {% else %}
                     <h5>Autor: {{post.nickname|upper}}</h3>
                         <p style="font-size: 12px;">{{post.fecha_pensamiento|date}}</p>
                         <h3 class="text-light">{{post.titulo|title}}</h3>
+                        {% endif %}
                 </div>
-                <div class="card-body text-light" style="background-color: rgb(61,60,68);">
+                <div class="card-body text-dark">
 
                     <p>{{post.Contenido}}</p>
                 </div>
-                <div class="card-footer">
+                <div class="card-footer bg-dark">
                     Comentarios: {% for comentario in comentarios %}
                     <div class="card bg-dark border-light">
                         <div class="card-header text-light">
                             {{comentario.nickname|upper}}:
                             <p>{{comentario.user_coment}}</p>
-                            <p style="text-align:right;font-size:12px;">{{comentario.fecha_comentario|date}}</p>
+                            <p style="text-align:right;font-size:12px;margin:0 ; padding:0">{{comentario.fecha_comentario|date}}</p>
                         </div>
                     </div>
                     <br> {% endfor %} {{form(comentar)}}

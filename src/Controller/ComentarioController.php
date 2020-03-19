@@ -29,6 +29,7 @@ class ComentarioController extends AbstractController
             $comentar->setContenidoComentario($form['contenido_comentario']->getData());
             $em->persist($comentar);
             $em->flush();
+            return $this->redirectToRoute('comentar',['id'=>$id]);
         }
         $comentarios=$em->getRepository(Comentarios::class)->verComentarios($id);
         return $this->render('comentario/index.html.twig',[

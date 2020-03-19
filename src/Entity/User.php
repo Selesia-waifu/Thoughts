@@ -50,6 +50,11 @@ class User implements UserInterface
      */
     private $nickname;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Likes", mappedBy="id_user")
+     */
+    private $likes;
+
     const REGISTRO_EXITOSO='Registro exitoso';
 
     public function __construct()
@@ -57,6 +62,7 @@ class User implements UserInterface
         $this->pensamientos = new ArrayCollection();
         $this->comentarios = new ArrayCollection();
         $this->roles=['ROLE_USER'];
+        $this->likes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -207,6 +213,37 @@ class User implements UserInterface
     public function setNickname(string $nickname): self
     {
         $this->nickname = $nickname;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Likes[]
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(Likes $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+            $like->setIdPublicacion($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(Likes $like): self
+    {
+        if ($this->likes->contains($like)) {
+            $this->likes->removeElement($like);
+            // set the owning side to null (unless already changed)
+            if ($like->getIdPublicacion() === $this) {
+                $like->setIdPublicacion(null);
+            }
+        }
 
         return $this;
     }
