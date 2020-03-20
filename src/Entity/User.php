@@ -36,12 +36,12 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Pensamientos", mappedBy="Id_user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Pensamientos", mappedBy="Id_user",cascade={"remove"})
      */
     private $pensamientos;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comentarios", mappedBy="Id_user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Comentarios", mappedBy="Id_user",cascade={"remove"})
      */
     private $comentarios;
 
@@ -51,7 +51,7 @@ class User implements UserInterface
     private $nickname;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Likes", mappedBy="id_user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Likes", mappedBy="id_user",cascade={"remove"})
      */
     private $likes;
 

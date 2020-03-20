@@ -1,4 +1,4 @@
- {% extends 'base.html.twig' %} {% block title %}Home{% endblock %} {% block body %}
+ {% extends 'base.html.twig' %} {% block title %}{{controller_name}}{% endblock %} {% block body %}
 <div class="container">
     <div class="row">
         <div class="offset-md-2 col-md-8">
@@ -11,29 +11,29 @@
                             <img type="button" data-toggle="dropdown" style="position: absolute;top:0px;right:0px" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle" id="dropdownMenuButton" src="{{asset('images/menu_vertical_24px.png')}}" alt="MenuImage" />
 
                             <div class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" style="color: white;" href="#"><img src="{{asset('images/edit_16px.png')}}" alt="EditImage"> Editar</a>
-                                <a class="dropdown-item" style="color: white;" href="#"><img src="{{asset('images/delete_bin_16px.png')}}" alt="EditImage"> Eliminar</a>
+                                <a class="dropdown-item" style="color: white;" href="/editar/{{post.id}}"><img src="{{asset('images/edit_16px.png')}}" alt="EditImage"> Editar</a>
+                                <a class="dropdown-item" style="color: white;" onclick="eliminar({{post.id}})"><img src=" {{asset( 'images/delete_bin_16px.png')}} " alt="EditImage "> Eliminar</a>
                             </div>
                     </div>
-                    <p style="font-size: 12px;">{{post.fecha_pensamiento|date}}</p>
-                    <h3 class="text-light">{{post.titulo|title}}</h3>
+                    <p style="font-size: 12px; ">{{post.fecha_pensamiento|date}}</p>
+                    <h3 class="text-light ">{{post.titulo|title}}</h3>
                     {% else %}
                     <h5>Autor: {{post.nickname|upper}}</h3>
-                        <p style="font-size: 12px;">{{post.fecha_pensamiento|date}}</p>
-                        <h3 class="text-light">{{post.titulo|title}}</h3>
+                        <p style="font-size: 12px; ">{{post.fecha_pensamiento|date}}</p>
+                        <h3 class="text-light ">{{post.titulo|title}}</h3>
                         {% endif %}
 
                 </div>
-                <div class="card-body text-dark">
+                <div class="card-body text-dark ">
                     <p>{{post.Contenido}}</p>
                 </div>
-                <div class="card-footer bg-dark text-light">
+                <div class="card-footer bg-dark text-light ">
                     {% if post.id in likis %}
-                    <a onclick="quitarlike({{post.id}})"><img id="imagen" src="{{asset('images/facebook_like_30px.png')}}" alt=""><a style="margin-left: 10px;font-size:20px;top:83.8%;position:absolute">{{post.Contadorlikes}}</a></a>
+                    <a onclick="quitarlike({{post.id}}) "><img id="imagen " src="{{asset( 'images/facebook_like_30px.png')}} " alt=" "><a style="margin-left: 10px;font-size:20px;top:83.8%;position:absolute ">{{post.Contadorlikes}}</a></a>
                     {% else %}
-                    <a onclick="like({{post.id}})"><img id="imagen" src="{{asset('images/facebook_like_32px.png')}}" alt=""><a style="margin-left: 10px;font-size:20px;top:83.8%;position:absolute">{{post.Contadorlikes}}</a></a>
+                    <a onclick="like({{post.id}}) "><img id="imagen " src="{{asset( 'images/facebook_like_32px.png')}} " alt=" "><a style="margin-left: 10px;font-size:20px;top:83.8%;position:absolute ">{{post.Contadorlikes}}</a></a>
                     {% endif %}
-                    <a class="text-light" style="float: right;" href="/comentar/{{post.id}}" role="button">Comentar</a>
+                    <a class="text-light " style="float: right; " href="/comentar/{{post.id}} " role="button ">Comentar</a>
                 </div>
             </div>
 
@@ -44,7 +44,7 @@
 </div>
 
 {% endblock %} {% block javascripts %} {{parent()}}
-<script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
-<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
-<script src="{{asset('js/ajaxcalls.js')}}"></script>
+<script src="{{ asset( 'bundles/fosjsrouting/js/router.min.js') }} "></script>
+<script src="{{ path( 'fos_js_routing_js', { callback: 'fos.Router.setData' }) }} "></script>
+<script src="{{asset( 'js/ajaxcalls.js')}} "></script>
 {% endblock %}

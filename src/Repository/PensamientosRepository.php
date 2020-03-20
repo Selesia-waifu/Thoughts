@@ -18,6 +18,15 @@ class PensamientosRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Pensamientos::class);
     }
+    public function MostrarMisPensamientos($id)
+    {
+        return $this->getEntityManager()
+        ->createQuery('select pensamiento.id,pensamiento.titulo,pensamiento.Contenido,pensamiento.Contadorlikes,pensamiento.fecha_pensamiento,user.nickname,
+                      user.email,user.id as userid
+                      from App:Pensamientos pensamiento
+                      Join pensamiento.Id_user user where pensamiento.Id_user=:id order by pensamiento.fecha_pensamiento desc')->setParameter('id',$id)
+                      ->getResult();
+    }
     public function MostrarPensamientos()
     {
         return $this->getEntityManager()
@@ -27,13 +36,13 @@ class PensamientosRepository extends ServiceEntityRepository
                       Join pensamiento.Id_user user order by pensamiento.fecha_pensamiento desc')
                       ->getResult();
     }
-    public function MostrarMisPensamientos()
+    public function EliminarPensamiento($id)
     {
         $em = $this->getEntityManager();
         $query =$em
-        ->createQuery('select pensamiento.id'
-
-        );
+        ->createQuery('delete from App: Likes lik where lik.id=:id
+        '
+        )->setParameter('id',$id);
     }
     public function MostrarPensamientosID($id)
     {

@@ -15,6 +15,51 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MostrarController extends AbstractController
 {
+
+    /**
+     * @Route("/eliminar",options={"exponse"=true},name="eliminar")
+     */
+    public function Eliminar(Request $request)
+    {
+        $pensamientos = new Pensamientos();
+        if ($request->isXmlHttpRequest()) 
+        {   $em = $this->getDoctrine()->getManager();
+            $id=$request->request->get('id');
+            $criteria= array('id'=>$id);
+            $pensamientos=$em->getRepository(Pensamientos::class)->findOneBy($criteria);
+            $em->remove($pensamientos);
+            $em->flush();
+            return new JsonResponse(['likes'=>$pensamientos]);
+        }
+        else
+        {
+            throw new \Exception('NO ME HAKIEES');
+        }
+    }
+    /**
+     * @Route("/mispublicaciones" , name="publicaciones")
+     */
+    public function Mispublicaciones()
+    {
+        $em =$this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $objPensamientos = $em->getRepository(Pensamientos::class)->MostrarMisPensamientos($user);
+        $comprobarlikes=$em->getRepository(Likes::class)->Comprobarlike($user);
+        $arry = array();
+        for ($i=0; $i <count($comprobarlikes) ; $i++) 
+        { 
+        array_push($arry,$comprobarlikes[$i]['lies']);  
+       
+        }
+        $separado=implode(",",$arry);
+        return $this->render('mostrar/index.html.twig', [
+            'controller_name' => 'Mis Pensamientos',
+            'pensamientos'=>$objPensamientos,
+            'comprobarlikes'=>$separado
+        ]);
+
+    }
+
     /**
      * @Route("/mostrar", name="mostrar")
      */
@@ -22,7 +67,6 @@ class MostrarController extends AbstractController
     {
         $user=$this->getUser();
         $em = $this->getDoctrine()->getManager();
-        $pensamientos= new Pensamientos();
         $objPensamientos=$em->getRepository(Pensamientos::class)->MostrarPensamientos();
         $comprobarlikes=$em->getRepository(Likes::class)->Comprobarlike($user);
          $arry = array();
@@ -35,7 +79,7 @@ class MostrarController extends AbstractController
          
          
         return $this->render('mostrar/index.html.twig', [
-            'controller_name' => 'MostrarController',
+            'controller_name' => 'Home',
             'pensamientos'=>$objPensamientos,
             'comprobarlikes'=>$separado
         ]);

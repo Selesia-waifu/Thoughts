@@ -41,12 +41,12 @@ class Pensamientos
     private $Id_user;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comentarios", mappedBy="Id_pensamiento")
+     * @ORM\OneToMany(targetEntity="App\Entity\Comentarios", mappedBy="Id_pensamiento",cascade={"remove"})
      */
     private $comentarios;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Likes", mappedBy="id_publicacion")
+     * @ORM\OneToMany(targetEntity="App\Entity\Likes", mappedBy="id_publicacion",cascade={"remove"})
      */
     private $likes;
 

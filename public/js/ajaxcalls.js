@@ -26,3 +26,17 @@ function quitarlike(id) {
         }
     });
 }
+
+function eliminar(id) {
+    var Ruta = "/eliminar";
+    $.ajax({
+        type: 'POST',
+        url: Ruta,
+        data: ({ 'id': id }),
+        async: true,
+        dataType: 'json',
+        success: function(data) {
+            window.location.href = "/mostrar";
+        }
+    });
+}

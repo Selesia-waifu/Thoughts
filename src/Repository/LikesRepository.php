@@ -18,14 +18,6 @@ class LikesRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Likes::class);
     }
-    public function Quitarlike($id)
-    {
-     $em = $this->getEntityManager();
-     $result = $em->createQuery('
-     Delete from App:Likes lik where lik.id=:id
-     ')->setParameter('id',$id);
-     
-    }
     public function Obtenerid($idpensamiento,$iduser)
     {
       $em = $this->getEntityManager();

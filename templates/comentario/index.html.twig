@@ -12,30 +12,30 @@
                             <img type="button" data-toggle="dropdown" style="position: absolute;top:0px;right:0px" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle" id="dropdownMenuButton" src="{{asset('images/menu_vertical_24px.png')}}" alt="MenuImage" />
 
                             <div class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" style="color: white;" href="#"><img src="{{asset('images/edit_16px.png')}}" alt="EditImage"> Editar</a>
-                                <a class="dropdown-item" style="color: white;" href="#"><img src="{{asset('images/delete_bin_16px.png')}}" alt="EditImage"> Eliminar</a>
+                                <a class="dropdown-item" style="color: white;" href="/editar/{{post.id}}"><img src="{{asset( 'images/edit_16px.png')}} " alt="EditImage "> Editar</a>
+                                <a class="dropdown-item " style="color: white; " onclick="eliminar({{post.id}}) "><img src="{{asset( 'images/delete_bin_16px.png')}} " alt="EditImage "> Eliminar</a>
                             </div>
                     </div>
-                    <p style="font-size: 12px;">{{post.fecha_pensamiento|date}}</p>
-                    <h3 class="text-light">{{post.titulo|title}}</h3>
+                    <p style="font-size: 12px; ">{{post.fecha_pensamiento|date}}</p>
+                    <h3 class="text-light ">{{post.titulo|title}}</h3>
 
                     {% else %}
                     <h5>Autor: {{post.nickname|upper}}</h3>
-                        <p style="font-size: 12px;">{{post.fecha_pensamiento|date}}</p>
-                        <h3 class="text-light">{{post.titulo|title}}</h3>
+                        <p style="font-size: 12px; ">{{post.fecha_pensamiento|date}}</p>
+                        <h3 class="text-light ">{{post.titulo|title}}</h3>
                         {% endif %}
                 </div>
-                <div class="card-body text-dark">
+                <div class="card-body text-dark ">
 
                     <p>{{post.Contenido}}</p>
                 </div>
-                <div class="card-footer bg-dark">
+                <div class="card-footer bg-dark ">
                     Comentarios: {% for comentario in comentarios %}
-                    <div class="card bg-dark border-light">
-                        <div class="card-header text-light">
+                    <div class="card bg-dark border-light ">
+                        <div class="card-header text-light ">
                             {{comentario.nickname|upper}}:
                             <p>{{comentario.user_coment}}</p>
-                            <p style="text-align:right;font-size:12px;margin:0 ; padding:0">{{comentario.fecha_comentario|date}}</p>
+                            <p style="text-align:right;font-size:12px;margin:0 ; padding:0 ">{{comentario.fecha_comentario|date}}</p>
                         </div>
                     </div>
                     <br> {% endfor %} {{form(comentar)}}
@@ -45,4 +45,8 @@
         </div>
     </div>
 </div>
+{% endblock %} {% block javascripts %} {{parent()}}
+<script src="{{ asset( 'bundles/fosjsrouting/js/router.min.js') }} "></script>
+<script src="{{ path( 'fos_js_routing_js', { callback: 'fos.Router.setData' }) }} "></script>
+<script src="{{asset( 'js/ajaxcalls.js')}} "></script>
 {% endblock %}

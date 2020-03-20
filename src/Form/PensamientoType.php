@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Pensamientos;
+use PhpParser\Node\Stmt\Label;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -16,7 +17,7 @@ class PensamientoType extends AbstractType
         $builder
             ->add('titulo')
             ->add('Contenido',TextareaType::class)
-            ->add('Publicar',SubmitType::class)
+            ->add('Publicar',SubmitType::class,['label'=>'Aceptar'])
         ;
     }
 
