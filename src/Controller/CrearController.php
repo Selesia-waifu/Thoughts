@@ -21,8 +21,7 @@ class CrearController extends AbstractController
         $pensamientos=$em->getRepository(Pensamientos::class)->findOneBy($criteria);
         if($pensamientos!=null)
         {
-            dump($pensamientos->getIdUser());
-            dump($user);
+            
             if($pensamientos->getIdUser()==$user)
             {
                 $titulo=$pensamientos->getTitulo();
